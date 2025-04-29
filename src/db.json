@@ -1,0 +1,116 @@
+{
+  "products": [
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075589",
+      "name": "Product A",
+      "description": "High quality product",
+      "categories": [
+        1
+      ],
+      "price": 101,
+      "quantity": 10
+    },
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075584",
+      "name": "Product B",
+      "description": "Exclusive design",
+      "categories": [
+        1
+      ],
+      "price": 200,
+      "quantity": 5
+    },
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075581",
+      "name": "Product C",
+      "description": "Best seller",
+      "categories": [
+        1
+      ],
+      "price": 150,
+      "quantity": 8
+    },
+    {
+      "id": "cb44400a-bbbd-4012-a3f5-2e7389075589",
+      "name": "Product D",
+      "description": "Durable material",
+      "categories": [],
+      "price": 80,
+      "quantity": 12
+    },
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075544",
+      "name": "Product E",
+      "description": "Premium quality",
+      "categories": [
+        2,
+        4
+      ],
+      "price": 220,
+      "quantity": 3
+    },
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075577",
+      "name": "Product F",
+      "description": "Limited edition",
+      "categories": [
+        3
+      ],
+      "price": 300,
+      "quantity": 2
+    },
+    {
+      "id": "cb46400a-bbbd-4012-a3f5-2e7389075559",
+      "name": "Dolo1",
+      "description": "dolo test",
+      "categories": [
+        1,
+        3
+      ],
+      "price": 2,
+      "quantity": 222
+    },
+    {
+      "id": "d1080998-1570-4311-ca9a-27a0003bba1c",
+      "name": "Dolo2",
+      "description": "dolo test",
+      "categories": [
+        1,
+        2
+      ],
+      "price": 522,
+      "quantity": 44
+    },
+    {
+      "id": "fca9843a-a198-4cbb-fcd2-05d3e8c9a03e",
+      "name": "Dolo 3",
+      "description": "dolo test",
+      "categories": [
+        1,
+        4
+      ],
+      "price": 88,
+      "quantity": 3
+    }
+  ],
+  "productHistory": [
+    {
+      "id": "m1",
+      "productId": 1,
+      "type": "IN",
+      "quantity": 50,
+      "timestamp": "2025-04-28T14:30:00.000Z",
+      "source": "Supplier XYZ",
+      "remarks": "Initial stock entry"
+    },
+    {
+      "id": "m2",
+      "productId": 2,
+      "type": "OUT",
+      "quantity": 10,
+      "timestamp": "2025-04-29T10:15:00.000Z",
+      "destination": "Customer ABC",
+      "remarks": "Order shipment"
+    }
+  ]
+}

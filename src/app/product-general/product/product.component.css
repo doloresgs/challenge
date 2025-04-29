@@ -1,0 +1,22 @@
+.product-form-panel {
+  margin: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.p-field {
+  margin-bottom: 15px;
+}
+
+.p-field-button {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  width: 100px;
+}
+
+.p-error {
+  color: #f44336;
+  font-size: 0.875rem;
+}

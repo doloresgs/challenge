@@ -1,0 +1,35 @@
+<div class="product-total">
+    <p-card>
+        <ng-template pTemplate="header">
+            <i class="pi pi-box" style="font-size: 2rem; color: #007ad9;"></i>
+        </ng-template>
+        <ng-template pTemplate="title">
+            Total Products
+        </ng-template>
+        <ng-template pTemplate="content">
+            <h2>{{ totalProducts }}</h2>
+        </ng-template>
+    </p-card>
+    <p-card>
+        <ng-template pTemplate="header">
+            <i class="pi pi-exclamation-triangle" style="font-size: 2rem; color: #c0392b;"></i>
+        </ng-template>
+        <ng-template pTemplate="title">
+            Low Stock
+        </ng-template>
+        <ng-template pTemplate="content">
+            <h2>{{ productsLessThanFive }}</h2>
+        </ng-template>
+    </p-card>
+    <p-card>
+        <ng-template pTemplate="header">
+            <i class="pi pi-dollar" style="font-size: 2rem; color: #28a745;"></i>
+        </ng-template>
+        <ng-template pTemplate="title">
+            Total Price
+        </ng-template>
+        <ng-template pTemplate="content">
+            <h2>{{ totalPrice | currency }}</h2>
+        </ng-template>
+    </p-card>
+</div>

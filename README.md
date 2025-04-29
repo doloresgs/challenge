@@ -2,8 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
 
+## Run the database
+Open a terminal and positioned to  the folder ..\challenge\src
+Then run the following command: `json-server --watch db.json`
+Novigate to `http://localhost:3000` to check the database.
+
 ## Development server
 
+Open another terminal
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
 ## Code scaffolding

@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "name": "Engine Components",
+        "subcategory": [
+            {
+                "id": 101,
+                "name": "Pistons"
+            },
+            {
+                "id": 102,
+                "name": "Valves"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Suspension System",
+        "subcategory": [
+            {
+                "id": 201,
+                "name": "Shock Absorbers"
+            },
+            {
+                "id": 202,
+                "name": "Springs"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Transmission System",
+        "subcategory": [
+            {
+                "id": 301,
+                "name": "Clutch"
+            },
+            {
+                "id": 302,
+                "name": "Gearbox"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Body Parts and Exterior",
+        "subcategory": [
+            {
+                "id": 401,
+                "name": "Doors"
+            },
+            {
+                "id": 402,
+                "name": "Windows"
+            }
+        ]
+    }
+]

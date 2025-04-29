@@ -1,0 +1,31 @@
+p-sidebar {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 10px 0;
+}
+
+a.nav-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+}
+
+.pi {
+  margin-right: 10px;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  p-sidebar {
+    width: 100vw !important; /* Fullscreen on small devices */
+  }
+}

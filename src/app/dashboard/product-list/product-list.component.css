@@ -1,0 +1,26 @@
+.product-list {
+    margin: 20px;
+  }
+  
+  p-table {
+    margin-bottom: 20px;
+  }
+
+  .category-badge {
+    display: inline-block;
+    background-color: #007ad9;
+    color: #fff;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border-radius: 20px;
+    font-size: 0.875rem;
+  }
+  
+  .no-categories {
+    color: #a9a9a9;
+    font-style: italic;
+  }  
+  
+  button {
+    margin-right: 10px;
+  }

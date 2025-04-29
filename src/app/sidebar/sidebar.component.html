@@ -1,0 +1,14 @@
+<p-sidebar [(visible)]="visible" [position]="'left'" [baseZIndex]="10000" [style]="{ width: '300px' }">
+  <h3>Challenge</h3>
+  <ul>
+    <li *ngFor="let item of items" class="nav-item">
+      <a [routerLink]="item.routeLink" class="nav-link"
+        (click)="closeSidebar()">
+        <i class="pi" [ngClass]="item.icon"></i>
+        <span>{{ item.label }}</span>
+      </a>
+    </li>
+  </ul>
+</p-sidebar>
+
+<button pButton type="button" icon="pi pi-bars" (click)="toggleSidebar()"></button>

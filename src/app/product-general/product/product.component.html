@@ -1,0 +1,37 @@
+<p-panel header="Product" styleClass="product-panel">
+    <div class="p-fluid">
+        <!-- Name Display -->
+        <div class="p-field">
+            <label for="name">Name</label>
+            <p pInputText>{{ product.name }}</p>
+        </div>
+
+        <!-- Description Display -->
+        <div class="p-field">
+            <label for="description">Description</label>
+            <p pInputText>{{ product.description}}</p>
+        </div>
+
+        <!-- Categories Display -->
+        <div class="p-field">
+            <label for="categories">Categories</label>
+            <ul>
+                <li *ngFor="let category of getCategoryNames(product.categories ?? [])">
+                    {{ category }}
+                </li>
+            </ul>
+        </div>
+
+        <!-- Price Display -->
+        <div class="p-field">
+            <label for="price">Price</label>
+            <p pInputText>{{ product.price }}</p>
+        </div>
+
+        <!-- Quantity Display -->
+        <div class="p-field">
+            <label for="quantity">Quantity</label>
+            <p pInputText>{{ product.quantity }}</p>
+        </div>
+    </div>
+</p-panel>
