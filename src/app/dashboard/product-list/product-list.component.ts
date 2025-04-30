@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,9 +7,8 @@ import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/services/category.service';
 import { ProductService } from 'src/app/services/product.service';
-import { setData } from 'src/app/store/data/data.actions';
 import { selectData } from 'src/app/store/data/data.selectors';
-import { createProduct, createProductFailure, deleteProductFailure, deleteProductSuccess, loadProductFailure, loadProductSuccess } from 'src/app/store/products/products.actions';
+import { createProductFailure, deleteProductFailure, deleteProductSuccess, loadProductFailure, loadProductSuccess } from 'src/app/store/products/products.actions';
 import { selectProduct } from 'src/app/store/products/products.selectors';
 import { UtilityFunctions } from 'src/app/utility-functions';
 
@@ -19,6 +18,9 @@ import { UtilityFunctions } from 'src/app/utility-functions';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+  @Output() productListUpdated = new EventEmitter<void>();
+  @Output() filteredProductsList = new EventEmitter<Product[]>();
+  
   categoriesFilter: FormGroup;
   products: Product[] = [];
   categories: Category[] = [];
@@ -56,8 +58,8 @@ export class ProductListComponent implements OnInit {
       description: [''],
       categories: [[]], // Multiple categories
       selectedCategories: [[]],
-      price: [0, [Validators.required, Validators.min(0.01)]],
-      quantity: [0, [Validators.required, Validators.min(1)]]
+      price: [0, [Validators.required, Validators.min(0.01), Validators.pattern('^[0-9]+(\.[0-9]+)?$')]],
+      quantity: [0, [Validators.required, Validators.min(1), Validators.pattern('^[0-9]+$')]]
     });
 
     this.receivedData$ = this.store.select(selectData);
@@ -72,11 +74,19 @@ export class ProductListComponent implements OnInit {
     this.categories = await firstValueFrom(this.categoryService.getCategories());
   }
 
-  async loadProducts(): Promise<void> {
-    this.products = await firstValueFrom(this.productService.getProducts());
-    this.filteredProducts = [...this.products];
-    this.totalRecords = this.products.length;
-    this.loading = false;
+  loadProducts(): void {
+    this.productService.getProducts().subscribe({
+      next: (products) => {
+        this.products = products;
+        this.filteredProducts = [...products];
+        this.totalRecords = products.length;
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.loading = false;
+      }
+    });
   }
 
   filterProducts(): void {
@@ -90,6 +100,7 @@ export class ProductListComponent implements OnInit {
       );
     }
     this.totalRecords = this.filteredProducts.length;
+    this.filteredProductsList.emit(this.filteredProducts); // Emit the filtered products
   }
 
   // Helper method to get category names from IDs
@@ -127,6 +138,7 @@ export class ProductListComponent implements OnInit {
         this.store.dispatch(deleteProductSuccess({ product: deletedProduct }));
         this.loadProducts(); // Reload products
         this.onPageChange({ first: this.currentPage, rows: this.rowsPerPage }); // Reset pagination
+        this.productListUpdated.emit(); // Emit event to notify parent component
       },
       error: (err) => {
         this.store.dispatch(deleteProductFailure({ error: err }));
@@ -234,6 +246,7 @@ export class ProductListComponent implements OnInit {
     }
     this.loadProducts(); // Reload products
     this.onPageChange({ first: this.currentPage, rows: this.rowsPerPage }); // Reset pagination
+    this.productListUpdated.emit(); // Emit event to notify parent component
   }
 
   onCancel(): void {

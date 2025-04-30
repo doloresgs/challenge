@@ -1,2 +1,3 @@
-<app-product-indicators></app-product-indicators>
-<app-product-list></app-product-list>
+<app-product-indicators [filteredProducts]="filteredProducts"></app-product-indicators>
+<app-product-list (productListUpdated)="onProductListUpdated()"
+    (filteredProductsList)="onFilteredProductsList($event)"></app-product-list>
