@@ -1,1 +1,29 @@
-<p>product-history works!</p>
+<div class="product-detail">
+    <h2>Product Detail</h2>
+    <p><strong>Name:</strong> {{ product.name }}</p>
+    <p *ngFor="let category of getCategoryNames(product.categories ?? [])">
+        <strong>Category:</strong> {{ category }}
+    </p>
+    <p><strong>Price:</strong> {{ product.price| currency }}</p>
+
+    <h3>Product History</h3>
+    <p-table [value]="productHistory" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="totalRecords" [loading]="loading"
+        (onPage)="onPageChange($event)">>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>DateTime</th>
+                <th>Type</th>
+                <th>Quantity</th>
+                <th>User</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-productHistory>
+            <tr>
+                <td>{{ productHistory.timestamp | date:'shortDate' }}</td>
+                <td>{{ productHistory.type }}</td>
+                <td>{{ productHistory.quantity }}</td>
+                <td>{{ productHistory.user }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>

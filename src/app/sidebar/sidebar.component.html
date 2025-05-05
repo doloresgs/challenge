@@ -1,5 +1,6 @@
-<p-sidebar [(visible)]="visible" [position]="'left'" [baseZIndex]="10000" [style]="{ width: '300px' }">
-  <h3>Challenge</h3>
+<p-sidebar [(visible)]="visible" [position]="'left'" [baseZIndex]="10000"
+  [showCloseIcon]="true" [modal]="true" class="sidebar-custom">
+  <h3>Kinetic - Challenge</h3>
   <ul>
     <li *ngFor="let item of items" class="nav-item">
       <a [routerLink]="item.routeLink" class="nav-link"
@@ -11,4 +12,6 @@
   </ul>
 </p-sidebar>
 
-<button pButton type="button" icon="pi pi-bars" (click)="toggleSidebar()"></button>
+<button pButton type="button" icon="pi pi-bars" class="p-button-rounded p-button-outlined"
+  (click)="toggleSidebar()">
+</button>

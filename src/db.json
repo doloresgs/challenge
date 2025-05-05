@@ -5,20 +5,20 @@
       "name": "Product A",
       "description": "High quality product",
       "categories": [
-        1
+        2
       ],
       "selectedCategories": [
         {
-          "id": 1,
-          "name": "Engine Components",
+          "id": 2,
+          "name": "Suspension System",
           "subcategory": [
             {
-              "id": 101,
-              "name": "Pistons"
+              "id": 201,
+              "name": "Shock Absorbers"
             },
             {
-              "id": 102,
-              "name": "Valves"
+              "id": 202,
+              "name": "Springs"
             }
           ]
         }
@@ -94,8 +94,38 @@
         2,
         4
       ],
+      "selectedCategories": [
+        {
+          "id": 2,
+          "name": "Suspension System",
+          "subcategory": [
+            {
+              "id": 201,
+              "name": "Shock Absorbers"
+            },
+            {
+              "id": 202,
+              "name": "Springs"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "name": "Body Parts and Exterior",
+          "subcategory": [
+            {
+              "id": 401,
+              "name": "Doors"
+            },
+            {
+              "id": 402,
+              "name": "Windows"
+            }
+          ]
+        }
+      ],
       "price": 220,
-      "quantity": 3
+      "quantity": 5
     },
     {
       "id": "cb46400a-bbbd-4012-a3f5-2e7389075577",
@@ -143,22 +173,20 @@
   ],
   "productHistory": [
     {
-      "id": "m1",
-      "productId": 1,
+      "id": "cb46400a-dygd-4012-a3f5-2e7389075581",
+      "productId": "cb46400a-bbbd-4012-a3f5-2e7389075581",
       "type": "IN",
-      "quantity": 50,
-      "timestamp": "2025-04-28T14:30:00.000Z",
-      "source": "Supplier XYZ",
-      "remarks": "Initial stock entry"
+      "quantity": 10,
+      "timestamp": "2025-05-01T00:50:00.000Z",
+      "user": "John Doe"
     },
     {
-      "id": "m2",
-      "productId": 2,
+      "id": "cb46400a-b5bd-4012-a3f5-2e7389075589",
+      "productId": "cb46400a-bbbd-4012-a3f5-2e7389075589",
       "type": "OUT",
-      "quantity": 10,
-      "timestamp": "2025-04-29T10:15:00.000Z",
-      "destination": "Customer ABC",
-      "remarks": "Order shipment"
+      "quantity": 5,
+      "timestamp": "2025-05-01T01:00:00.000Z",
+      "user": "Jane Smith"
     }
   ]
 }

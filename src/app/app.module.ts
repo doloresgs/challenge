@@ -30,6 +30,7 @@ import { ProductGeneralComponent } from './product-general/product-general.compo
 import { ProductHistoryComponent } from './product-general/product-history/product-history.component';
 import { ProductComponent } from './product-general/product/product.component';
 import { CategoryService } from './services/category.service';
+import { ProductHistoryService } from './services/product-history.service';
 import { ProductService } from './services/product.service';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { dataReducer } from './store/data/data.reducer';
@@ -78,7 +79,8 @@ import { productsReducer } from './store/products/products.reducer';
   ],
   providers: [
     ProductService,
-    CategoryService
+    CategoryService,
+    ProductHistoryService
   ],
   bootstrap: [AppComponent]
 })

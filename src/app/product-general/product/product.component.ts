@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { lastValueFrom } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
 import { CategoryService } from 'src/app/services/category.service';
@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class ProductComponent implements OnInit {
   @Input() productId: string = '';
-  product = {} as Product;
+  product!: Product;
   categories: Category[] = [];
 
   constructor(
@@ -21,8 +21,8 @@ export class ProductComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.product = await firstValueFrom(this.productService.getProductById(this.productId));
-    this.categories = await firstValueFrom(this.categoryService.getCategories());
+    this.product = await lastValueFrom(this.productService.getProductById(this.productId));
+    this.categories = await lastValueFrom(this.categoryService.getCategories());
   }
 
   // Helper method to get category names from IDs

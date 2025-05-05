@@ -1,0 +1,12 @@
+.product-detail {
+    margin: 20px;
+}
+
+.product-detail h2 {
+    color: #333;
+}
+
+.product-detail h3 {
+    margin-top: 20px;
+    color: #666;
+}

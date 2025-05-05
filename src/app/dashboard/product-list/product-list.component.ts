@@ -5,7 +5,9 @@ import { Store } from '@ngrx/store';
 import { firstValueFrom, lastValueFrom, Observable } from 'rxjs';
 import { Category } from 'src/app/models/category';
 import { Product } from 'src/app/models/product';
+import { ProductHistory } from 'src/app/models/product-history';
 import { CategoryService } from 'src/app/services/category.service';
+import { ProductHistoryService } from 'src/app/services/product-history.service';
 import { ProductService } from 'src/app/services/product.service';
 import { selectData } from 'src/app/store/data/data.selectors';
 import { createProductFailure, deleteProductFailure, deleteProductSuccess, loadProductFailure, loadProductSuccess } from 'src/app/store/products/products.actions';
@@ -20,7 +22,7 @@ import { UtilityFunctions } from 'src/app/utility-functions';
 export class ProductListComponent implements OnInit {
   @Output() productListUpdated = new EventEmitter<void>();
   @Output() filteredProductsList = new EventEmitter<Product[]>();
-  
+
   categoriesFilter: FormGroup;
   products: Product[] = [];
   categories: Category[] = [];
@@ -38,12 +40,15 @@ export class ProductListComponent implements OnInit {
   selectedCategoriesObject: Category[] = [];
   productId: number = 0;
 
+  productHistory: ProductHistory | undefined;
+
   product$ = this.store.select(selectProduct);
   receivedData$: Observable<string>;
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
+    private productHistoryService: ProductHistoryService,
     private router: Router,
     private store: Store,
     private fb: FormBuilder
@@ -70,23 +75,18 @@ export class ProductListComponent implements OnInit {
     this.categories = await firstValueFrom(this.categoryService.getCategories());
   }
 
-  async ngOnChanges(): Promise<void> {
-    this.categories = await firstValueFrom(this.categoryService.getCategories());
-  }
-
   loadProducts(): void {
     this.productService.getProducts().subscribe({
       next: (products) => {
         this.products = products;
         this.filteredProducts = [...products];
         this.totalRecords = products.length;
-        this.loading = false;
       },
       error: (err) => {
         console.error('Error loading products:', err);
-        this.loading = false;
       }
     });
+    this.loading = false;
   }
 
   filterProducts(): void {
@@ -132,13 +132,21 @@ export class ProductListComponent implements OnInit {
   deleteProduct(productId: string): void {
     // Call the service method to delete the product
     this.productService.deleteProduct(productId).subscribe({
-      next: (deletedProduct) => {
+      next: async (deletedProduct) => {
         // Dispatch the action after successful deletion
         // Dispatch the NgRx action to update the store
         this.store.dispatch(deleteProductSuccess({ product: deletedProduct }));
         this.loadProducts(); // Reload products
         this.onPageChange({ first: this.currentPage, rows: this.rowsPerPage }); // Reset pagination
         this.productListUpdated.emit(); // Emit event to notify parent component
+        this.productHistory = {
+          id: UtilityFunctions.newGUID(),
+          productId: deletedProduct.id,
+          type: 'OUT',
+          quantity: deletedProduct.quantity,
+          timestamp: new Date()
+        };
+        await lastValueFrom(this.productHistoryService.createProductHistory(this.productHistory));
       },
       error: (err) => {
         this.store.dispatch(deleteProductFailure({ error: err }));
@@ -217,9 +225,20 @@ export class ProductListComponent implements OnInit {
         const product: Product = this.productForm.value;
         // Call the service method to create the product
         this.productService.createProduct(product).subscribe({
-          next: (createdProduct) => {
+          next: async (createdProduct) => {
+            this.loadProducts(); // Reload products
+            this.onPageChange({ first: 0, rows: this.rowsPerPage }); // Reset pagination
             console.log('Product Created:', createdProduct);
+            this.productHistory = {
+              id: UtilityFunctions.newGUID(),
+              productId: createdProduct.id,
+              type: 'IN',
+              quantity: createdProduct.quantity,
+              timestamp: new Date()
+            };
+            await lastValueFrom(this.productHistoryService.createProductHistory(this.productHistory));
           },
+
           error: (err) => {
             this.store.dispatch(createProductFailure({ error: err }));
             console.error('Error Creating Product:', err);
@@ -231,8 +250,19 @@ export class ProductListComponent implements OnInit {
         // Update the product
         const updatedProduct: Product = this.productForm.value;
         this.productService.updateProduct(updatedProduct).subscribe({
-          next: (updatedProduct) => {
-            console.log('Product Updated:', updatedProduct);
+          next: async (updatedProduct) => {
+            this.loadProducts(); // Reload products
+            this.onPageChange({ first: this.currentPage, rows: this.rowsPerPage }); // Reset pagination
+            if (updatedProduct.quantity !== this.productForm.value.quantity) {
+              this.productHistory = {
+                id: UtilityFunctions.newGUID(),
+                productId: updatedProduct.id,
+                type: updatedProduct.quantity > this.productForm.value.quantity ? 'IN' : 'OUT',
+                quantity: updatedProduct.quantity,
+                timestamp: new Date()
+              };
+              await lastValueFrom(this.productHistoryService.createProductHistory(this.productHistory));
+            }
             // Dispatch the NgRx action to update the store
             //this.store.dispatch(loadProductSuccess({ product: updatedProduct }));
           },
@@ -244,8 +274,6 @@ export class ProductListComponent implements OnInit {
       }
       this.display = false;
     }
-    this.loadProducts(); // Reload products
-    this.onPageChange({ first: this.currentPage, rows: this.rowsPerPage }); // Reset pagination
     this.productListUpdated.emit(); // Emit event to notify parent component
   }
 

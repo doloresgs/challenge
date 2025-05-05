@@ -1,31 +1,42 @@
-p-sidebar {
-  background-color: #f4f4f4;
-  color: #333;
+.sidebar-custom {
+  padding: 1rem;
+  background-color: var(--surface-ground); /* PrimeNG theme variable */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-ul {
+.nav-item {
   list-style: none;
-  padding: 0;
+  margin-bottom: 0.5rem;
 }
 
-li {
-  margin: 10px 0;
-}
-
-a.nav-link {
-  text-decoration: none;
-  color: inherit;
+.nav-link {
   display: flex;
   align-items: center;
+  padding: 0.75rem;
+  color: var(--text-color);
+  text-decoration: none;
+  transition: background 0.3s ease-in-out;
+}
+
+.nav-link:hover {
+  background-color: var(--primary-color);
+  color: var(--surface-overlay);
 }
 
 .pi {
-  margin-right: 10px;
+  margin-right: 0.5rem;
 }
 
-/* Responsive Styling */
+h3 {
+  font-size: xx-large;
+}
+
+a {
+  font-size: larger;
+}
+
 @media (max-width: 768px) {
-  p-sidebar {
-    width: 100vw !important; /* Fullscreen on small devices */
+  .sidebar-custom {
+    width: 80vw; /* Expand for better usability on smaller screens */
   }
 }

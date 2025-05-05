@@ -10,10 +10,10 @@ export class CategoryService {
 
     getCategories(): Observable<Array<Category>> {
         return this.http.get<any>('/assets/categories.json').pipe(
-            tap((data: Category[]) => console.log('Product data retrieved:', data.length)), // Log inline
+            tap((data: Category[]) => console.log('Categories data retrieved:', data.length)), // Log inline
             catchError((err) => {
-                console.error('Error retrieving products:', err); // Handle error inline
-                return throwError(() => new Error('Failed to retrieve products')); // Throw a new error
+                console.error('Error retrieving categories:', err); // Handle error inline
+                return throwError(() => new Error('Failed to retrieve categories')); // Throw a new error
             })
         );
     }
